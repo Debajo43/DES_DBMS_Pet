@@ -84,6 +84,7 @@ CREATE TABLE Medical_records (
     appointment_id  INT NOT NULL,
     pet_id          INT NOT NULL,
     staff_id        INT NOT NULL,
+    symptoms        TEXT,
     diagnosis       TEXT,
     treatment       TEXT,
     prescription    TEXT,
@@ -244,27 +245,57 @@ VALUES
 (1009, 9, 210, 4, 'Blood test', '2026-10-09', '10:00:00', 'scheduled'),
 (1010, 10, 209, 10, 'Emergency treatment', '2026-10-10', '15:00:00', 'cancelled');
 
-INSERT INTO Medical_Record
+INSERT INTO Medical_Records
 (record_ID, appointment_id, pet_id, staff_id, visit_date,
  symptoms, diagnosis, treatment, prescription)
 VALUES
-(1, 1, 1, 1, '2026-10-01',
+(1, 1001, 1, 201, '2026-10-01',
  'Mild fever', 'Minor infection', 'Medication and rest', 'Antibiotic twice daily'),
-(2, 2, 2, 3, '2026-10-02',
+(2, 1002, 2, 203, '2026-10-02',
  'Skin itching', 'Skin allergy', 'Anti-allergy treatment', 'Antihistamine once daily'),
-(3, 3, 3, 2, '2026-10-03',
+(3, 1003, 3, 202, '2026-10-03',
  'Joint pain', 'Ligament problem', 'Surgery recommended', 'Painkiller as required'),
-(4, 4, 4, 4, '2026-10-04',
+(4, 1004, 4, 204, '2026-10-04',
  'Bad breath', 'Dental infection', 'Dental cleaning', 'Dental medicine'),
-(5, 5, 5, 5, '2026-10-05',
+(5, 1005, 5, 205, '2026-10-05',
  'No symptoms', 'Healthy', 'Vaccination given', 'No prescription'),
-(6, 6, 6, 9, '2026-10-06',
+(6, 1006, 6, 209, '2026-10-06',
  'Difficulty walking', 'Leg injury', 'Rest and medication', 'Painkiller twice daily'),
-(7, 7, 7, 1, '2026-10-07',
+(7, 1007, 7, 201, '2026-10-07',
  'Loss of appetite', 'Worm infection', 'Deworming treatment', 'Deworming tablet'),
-(8, 8, 8, 8, '2026-10-08',
+(8, 1008, 8, 208, '2026-10-08',
  'Dirty coat', 'No medical issue', 'Grooming performed', 'No prescription'),
-(9, 9, 9, 3, '2026-10-09',
+(9, 1009, 9, 203, '2026-10-09',
  'Weakness', 'Low hemoglobin', 'Dietary treatment', 'Iron supplement'),
-(10, 10, 10, 2, '2026-10-10',
+(10, 1010, 10, 202, '2026-10-10',
  'Vomiting', 'Stomach infection', 'Emergency treatment', 'Antibiotic and fluids');
+
+INSERT INTO Bills
+(bill_id, appointment_id, bill_date, total_amount, bill_status)
+VALUES
+(1, 1001, '2026-10-01', 500.00, 'paid'),
+(2, 1002, '2026-10-02', 900.00, 'paid'),
+(3, 1003, '2026-10-03', 1000.00, 'paid'),
+(4, 1004, '2026-10-04', 600.00, 'paid'),
+(5, 1005, '2026-10-05', 800.00, 'paid'),
+(6, 1006, '2026-10-06', 1200.00, 'unpaid'),
+(7, 1007, '2026-10-07', 350.00, 'paid'),
+(8, 1008, '2026-10-08', 450.00, 'unpaid'),
+(9, 1009, '2026-10-09', 700.00, 'unpaid'),
+(10, 1010, '2026-10-10', 1500.00, 'cancelled');
+
+
+INSERT INTO Payments
+(payment_id, bill_id, payment_date, amount, payment_status, payment_method)
+VALUES
+(1, 1, '2026-10-01', 500.00, 'paid', 'upi'),
+(2, 2, '2026-10-02', 900.00, 'paid', 'card'),
+(3, 3, '2026-10-03', 1000.00, 'paid', 'cash'),
+(4, 4, '2026-10-04', 600.00, 'paid', 'upi'),
+(5, 5, '2026-10-05', 800.00, 'paid', 'card'),
+(6, 6, NULL, 1200.00, 'pending', 'cash'),
+(7, 7, '2026-10-07', 350.00, 'paid', 'upi'),
+(8, 8, NULL, 450.00, 'pending', 'cash'),
+(9, 9, NULL, 700.00, 'pending', 'card'),
+(10, 10, NULL, 1500.00, 'failed', 'upi');
+
